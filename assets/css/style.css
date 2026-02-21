@@ -1,38 +1,4 @@
-/* Delasof2026 - Custom Styles */
-
-:root {
-  --primary: #3b82f6;
-  --primary-dark: #1d4ed8;
-  --secondary: #6b7280;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --light: #f3f4f6;
-  --dark: #1f2937;
-  --border-radius: 0.5rem;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-family: 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: #ffffff;
-  color: #1f2937;
-  line-height: 1.6;
-}
-
-body.dark {
-  background-color: #111827;
-  color: #f3f4f6;
-}
+/* Delasof2026 - Custom Styles from React Version */
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
@@ -49,19 +15,19 @@ h6 { font-size: 1rem; }
 
 /* Links */
 a {
-  color: var(--primary);
+  color: hsl(var(--primary));
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--primary-dark);
+  opacity: 0.8;
 }
 
 /* Buttons */
 button, .btn {
   padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius);
   border: none;
   cursor: pointer;
   font-size: 1rem;
@@ -75,70 +41,64 @@ button:hover, .btn:hover {
 }
 
 .btn-primary {
-  background-color: var(--primary);
-  color: white;
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-dark);
+  opacity: 0.9;
 }
 
 .btn-secondary {
-  background-color: var(--secondary);
-  color: white;
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
 }
 
 .btn-secondary:hover {
-  background-color: #4b5563;
+  opacity: 0.9;
 }
 
 .btn-danger {
-  background-color: var(--danger);
-  color: white;
+  background-color: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
 }
 
 .btn-danger:hover {
-  background-color: #dc2626;
+  opacity: 0.9;
 }
 
 .btn-success {
-  background-color: var(--success);
+  background-color: hsl(var(--success));
   color: white;
 }
 
 .btn-success:hover {
-  background-color: #059669;
+  opacity: 0.9;
 }
 
 /* Forms */
 input, textarea, select {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #e5e7eb;
-  border-radius: var(--border-radius);
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
   font-family: inherit;
   font-size: 1rem;
   transition: border-color 0.2s ease;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-body.dark input,
-body.dark textarea,
-body.dark select {
-  background-color: #1f2937;
-  color: #f3f4f6;
-  border-color: #374151;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
 }
 
 /* Cards */
 .card {
-  background-color: white;
-  border-radius: var(--border-radius);
+  background-color: hsl(var(--card));
+  border-radius: var(--radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   transition: box-shadow 0.2s ease;
@@ -146,11 +106,6 @@ body.dark select {
 
 .card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-body.dark .card {
-  background-color: #1f2937;
-  color: #f3f4f6;
 }
 
 /* Grid */
@@ -268,15 +223,15 @@ body.dark .card {
 
 /* Borders */
 .border {
-  border: 1px solid #e5e7eb;
+  border: 1px solid hsl(var(--border));
 }
 
 .border-t {
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid hsl(var(--border));
 }
 
 .border-b {
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid hsl(var(--border));
 }
 
 .rounded {
@@ -346,26 +301,25 @@ body.dark .card {
 
 /* Colors */
 .text-white { color: white; }
-.text-gray-600 { color: #4b5563; }
-.text-gray-700 { color: #374151; }
-.text-gray-800 { color: #1f2937; }
-.text-gray-900 { color: #111827; }
-.text-blue-600 { color: var(--primary); }
-.text-red-600 { color: var(--danger); }
-.text-green-600 { color: var(--success); }
-.text-yellow-400 { color: #fbbf24; }
-.text-orange-600 { color: #ea580c; }
+.text-primary { color: hsl(var(--primary)); }
+.text-primary-foreground { color: hsl(var(--primary-foreground)); }
+.text-secondary { color: hsl(var(--secondary)); }
+.text-secondary-foreground { color: hsl(var(--secondary-foreground)); }
+.text-muted { color: hsl(var(--muted)); }
+.text-muted-foreground { color: hsl(var(--muted-foreground)); }
+.text-destructive { color: hsl(var(--destructive)); }
+.text-success { color: hsl(var(--success)); }
+.text-accent { color: hsl(var(--accent)); }
 
 .bg-white { background-color: white; }
-.bg-gray-100 { background-color: #f3f4f6; }
-.bg-gray-200 { background-color: #e5e7eb; }
-.bg-gray-900 { background-color: #111827; }
-.bg-blue-600 { background-color: var(--primary); }
-.bg-red-600 { background-color: var(--danger); }
-.bg-green-600 { background-color: var(--success); }
-.bg-red-100 { background-color: #fee2e2; }
-.bg-green-100 { background-color: #dcfce7; }
-.bg-blue-100 { background-color: #dbeafe; }
+.bg-background { background-color: hsl(var(--background)); }
+.bg-card { background-color: hsl(var(--card)); }
+.bg-primary { background-color: hsl(var(--primary)); }
+.bg-secondary { background-color: hsl(var(--secondary)); }
+.bg-muted { background-color: hsl(var(--muted)); }
+.bg-destructive { background-color: hsl(var(--destructive)); }
+.bg-success { background-color: hsl(var(--success)); }
+.bg-accent { background-color: hsl(var(--accent)); }
 
 /* Shadows */
 .shadow-sm {
@@ -403,13 +357,6 @@ body.dark .card {
 
 .min-h-screen {
   min-height: 100vh;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  h1 { font-size: 1.875rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.25rem; }
 }
 
 /* Animations */
@@ -456,4 +403,26 @@ body.dark .card {
 
 .transition {
   transition: all 0.2s ease;
+}
+
+.container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
