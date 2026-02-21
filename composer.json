@@ -1,0 +1,20 @@
+{
+    "name": "delasof2026/php",
+    "description": "Delasof2026 - Affiliate Shop Platform (PHP Version)",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Delasof",
+            "email": "info@delasof.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

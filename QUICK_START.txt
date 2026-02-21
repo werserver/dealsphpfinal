@@ -1,0 +1,95 @@
+DELASOF2026 PHP - QUICK START GUIDE
+
+PROJECT OVERVIEW
+A complete PHP port of Delasof2026 affiliate shop with product management, admin panel, URL cloaking, and wishlist functionality.
+
+QUICK START (5 MINUTES)
+
+1. EXTRACT PROJECT
+   tar -xzf delasof2026_php.tar.gz
+   cd delasof2026_php
+
+2. SET PERMISSIONS
+   chmod 755 storage
+   chmod 755 storage/csv
+   chmod 755 storage/logs
+
+3. START LOCAL SERVER
+   cd public
+   php -S localhost:8000
+
+4. ACCESS APPLICATION
+   Frontend: http://localhost:8000/
+   Admin:    http://localhost:8000/admin
+
+5. LOGIN TO ADMIN
+   Username: admin
+   Password: sofaraway
+
+6. UPLOAD CSV FILE
+   Admin Panel → CSV Tab → Upload your product CSV file
+
+ADMIN CREDENTIALS
+Username: admin
+Password: sofaraway
+
+URL CLOAKING CONFIGURATION
+Default Token:    QlpXZyCqMylKUjZiYchwB
+Default Base URL: https://goeco.mobi/?token=QlpXZyCqMylKUjZiYchwB
+
+Format: {base_url}&url={encoded_product_url}&source=api_product
+
+MAIN PAGES
+/ ........................... Homepage (product listing)
+/admin ...................... Admin panel
+/product/{slug} ............ Product detail page
+/category/{name} ........... Category page
+/wishlist .................. Wishlist page
+/about ..................... About page
+/contact ................... Contact page
+/sitemap.xml ............... XML sitemap
+
+API ENDPOINTS
+GET  /api/config ..................... Get configuration
+POST /api/config ..................... Save configuration (admin)
+POST /api/auth/login ................. Admin login
+GET  /api/auth/logout ................ Admin logout
+GET  /api/products ................... List products
+GET  /api/products?action=search ..... Search products
+GET  /api/products?action=category ... Get category products
+GET  /api/csv ........................ List CSV files
+POST /api/csv ........................ Upload CSV (admin)
+DELETE /api/csv ...................... Delete CSV (admin)
+
+FEATURES
+✓ Product search and filtering
+✓ Category-based browsing
+✓ Product sorting (price, discount, rating)
+✓ Pagination support
+✓ Wishlist management (localStorage)
+✓ URL cloaking for all product links
+✓ Responsive design (mobile, tablet, desktop)
+✓ Light/dark theme support
+✓ Admin authentication
+✓ CSV file management
+✓ Configuration management
+✓ XML sitemap generation
+✓ SEO-friendly URLs
+✓ Product detail pages
+✓ Related products section
+
+DOCUMENTATION
+README.md ..................... Complete documentation
+SETUP.md ...................... Setup and testing guide
+ARCHITECTURE_PLAN.md .......... Architecture overview
+FEATURES_CHECKLIST.md ........ Feature list
+PROJECT_FILES.txt ............ File listing
+
+DEPLOYMENT
+Apache: Copy to /var/www/html/delasof2026_php, enable mod_rewrite
+Nginx: Copy to /var/www/html/delasof2026_php, create Nginx config
+
+For full documentation, see README.md
+For support: info@delasof.com
+
+Version: 1.0.0 | Status: Production Ready
