@@ -1,350 +1,267 @@
-# Delasof2026 PHP Version
+# Delasof2026 PHP - Affiliate Shop Platform
 
-A complete PHP port of the Delasof2026 affiliate shop platform with product listings, admin panel, URL cloaking, and wishlist functionality.
+ระบบจัดการร้านค้าออนไลน์แบบ affiliate ที่สมบูรณ์พร้อมใช้งาน สำหรับเซิร์ฟเวอร์ PHP ธรรมชาติ
 
-## Features
+## 🎯 ลักษณะเด่น
 
-✅ **Product Management**
-- Display products from CSV files
-- Search and filter products
-- Category-based browsing
-- Pagination support
-- Product detail pages
+- ✅ **Standalone PHP** - ไม่ต้องติดตั้ง API backend
+- ✅ **URL Cloaking** - ซ่อน URL สินค้าจริง
+- ✅ **CSV Management** - อัพโหลดและจัดการสินค้าผ่าน CSV
+- ✅ **Admin Panel** - ระบบจัดการแบบสมบูรณ์
+- ✅ **Responsive Design** - ใช้งานได้บนทุกอุปกรณ์
+- ✅ **No Dependencies** - ไม่ต้องติดตั้งอะไรพิเศษ
+- ✅ **Ready for Production** - พร้อมใช้งานบนโฮสติ้งปกติ
 
-✅ **Admin Panel**
-- Admin login (username: `admin`, password: `sofaraway`)
-- Configuration management
-- CSV file upload and management
-- Category management
-- Theme color settings
-- URL cloaking configuration
+## 📋 ความต้องการ
 
-✅ **URL Cloaking**
-- Default Base URL: `https://goeco.mobi/?token=QlpXZyCqMylKUjZiYchwB`
-- Default Token: `QlpXZyCqMylKUjZiYchwB`
-- Automatic URL encoding and parameter appending
+- PHP 7.4 หรือสูงกว่า
+- เซิร์ฟเวอร์ที่รองรับ `.htaccess` (Apache)
+- Write permission สำหรับ `storage/` directory
 
-✅ **User Features**
-- Product search and filtering
-- Wishlist (localStorage-based)
-- Responsive design
-- Light/Dark theme support
-- SEO-friendly URLs
+## 🚀 การติดตั้ง
 
-✅ **API Endpoints**
-- `/api/auth/login` - Admin login
-- `/api/auth/logout` - Admin logout
-- `/api/config` - Get/update configuration
-- `/api/products` - List/search products
-- `/api/csv` - Manage CSV files
-- `/sitemap.xml` - XML sitemap
+### 1. อัพโหลดไฟล์
 
-## Installation
+```bash
+# Clone repository
+git clone https://github.com/werserver/dealsphpfinal.git
+cd dealsphpfinal
 
-### Requirements
-- PHP 7.4 or higher
-- Web server (Apache with mod_rewrite or Nginx)
-- Modern web browser
+# หรือ extract จาก ZIP file
+unzip dealsphpfinal.zip
+cd dealsphpfinal
+```
 
-### Setup Steps
+### 2. ตั้งค่า Permissions
 
-1. **Clone or extract the project**
-   ```bash
-   cd delasof2026_php
-   ```
+```bash
+# ให้สิทธิ์เขียนสำหรับ storage directory
+chmod 755 storage
+chmod 755 storage/csv
+chmod 755 storage/logs
+```
 
-2. **Create storage directories**
-   ```bash
-   mkdir -p storage/csv storage/logs
-   chmod 755 storage storage/csv storage/logs
-   ```
+### 3. เรียกใช้งาน
 
-3. **Configure web server**
+#### ตัวเลือก A: ใช้ PHP Built-in Server (สำหรับทดสอบ)
 
-   **Apache (.htaccess already included):**
-   - Ensure `mod_rewrite` is enabled
-   - The `.htaccess` file in `public/` handles URL rewriting
+```bash
+cd /path/to/dealsphpfinal
+php -S localhost:8000
+```
 
-   **Nginx:**
-   ```nginx
-   location / {
-       try_files $uri $uri/ /index.php?$query_string;
-   }
-   ```
+จากนั้นเข้าไปที่ `http://localhost:8000`
 
-4. **Set file permissions**
-   ```bash
-   chmod 755 public
-   chmod 644 public/index.php
-   chmod 755 storage
-   ```
+#### ตัวเลือก B: ใช้ Apache
 
-5. **Access the application**
-   - Frontend: `http://localhost/delasof2026_php/public/`
-   - Admin: `http://localhost/delasof2026_php/public/admin`
+```bash
+# ตั้งค่า Virtual Host
+<VirtualHost *:80>
+    ServerName example.com
+    DocumentRoot /path/to/dealsphpfinal
+    
+    <Directory /path/to/dealsphpfinal>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
 
-## Admin Login
+## 🔐 Admin Login
 
-- **Username:** `admin`
-- **Password:** `sofaraway`
+**URL:** `http://yoursite.com/admin`
 
-## Configuration
+**Default Credentials:**
+- Username: `admin`
+- Password: `sofaraway`
 
-### Default Settings
+## 📁 โครงสร้างโปรเจกต์
 
-Configuration is stored in `storage/config.json`:
+```
+delasof2026_php/
+├── index.php                 # Entry point
+├── .htaccess                 # URL rewriting
+├── assets/                   # Static files
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── src/
+│   ├── lib/                  # Core libraries
+│   │   ├── config.php
+│   │   ├── auth.php
+│   │   ├── url-builder.php
+│   │   ├── csv-parser.php
+│   │   └── utils.php
+│   ├── pages/                # Page templates
+│   │   ├── home.php
+│   │   ├── admin.php
+│   │   ├── product.php
+│   │   ├── category.php
+│   │   ├── wishlist.php
+│   │   ├── about.php
+│   │   ├── contact.php
+│   │   └── 404.php
+│   └── components/           # Reusable components
+│       └── layout.php
+├── storage/                  # Data storage
+│   ├── config.json          # Configuration
+│   ├── csv/                 # CSV files
+│   └── logs/                # Error logs
+└── README.md
+```
+
+## ⚙️ Configuration
+
+### config.json
+
+ไฟล์ `storage/config.json` ใช้สำหรับเก็บการตั้งค่า:
 
 ```json
 {
   "siteName": "ThaiDeals",
-  "dataSource": "csv",
-  "categories": [
-    "สินค้าแนะนำ",
-    "ดีลเด็ด",
-    "ของใช้ในบ้าน",
-    "แฟชั่น",
-    "อิเล็กทรอนิกส์"
-  ],
-  "keywords": [...],
-  "enableFlashSale": true,
-  "enableAiReviews": false,
-  "defaultCurrency": "THB",
   "cloakingToken": "QlpXZyCqMylKUjZiYchwB",
-  "cloakingBaseUrl": "https://goeco.mobi/?token=QlpXZyCqMylKUjZiYchwB"
+  "cloakingBaseUrl": "https://goeco.mobi/?token=QlpXZyCqMylKUjZiYchwB",
+  "categories": ["สินค้าแนะนำ", "อิเล็กทรอนิกส์"],
+  "enableFlashSale": false,
+  "enableAiReviews": false
 }
 ```
 
-### URL Cloaking Configuration
+### URL Cloaking
 
-The application uses URL cloaking to redirect product links through a tracking service:
+ระบบจะสร้างลิงก์แบบ cloaked สำหรับสินค้าทั้งหมด:
 
-**Base URL Format:**
 ```
-https://goeco.mobi/?token=YOUR_TOKEN&url=ENCODED_PRODUCT_URL&source=api_product
-```
+Format: {baseUrl}&url={encoded_url}&source=api_product
 
-**Example:**
-```
+ตัวอย่าง:
 https://goeco.mobi/?token=QlpXZyCqMylKUjZiYchwB&url=https%3A%2F%2Fshopee.co.th%2Fproduct&source=api_product
 ```
 
-You can customize the token and base URL in the Admin Panel.
+## 📊 CSV Format
 
-## CSV File Format
+ไฟล์ CSV ต้องมีคอลัมน์ต่อไปนี้:
 
-CSV files should be placed in `storage/csv/` directory with the following columns:
-
-```
-product_id,product_url,product_name,product_price,product_discounted,product_min_price,product_max_price,product_sold,product_discount_percentage,product_discount_text,product_shop_id,product_shop_name,product_shop_location,product_rating,product_review_count,...
-```
-
-### Example CSV Row:
-```
-24462649604,"https://shopee.co.th/product","สระน้ำเป่าลม","798.00","160.00","160.00","360.00",56,"72%","ซื้อ 2 ชิ้น ลด ฿10",1071816656,"TrailQuest","สมุทรปราการ",4.8,2812,...
+```csv
+product_name,product_price,product_discounted,product_discount_percentage,product_rating,product_review_count,product_shop_name,product_url,product_image
+iPhone 13,25000,22000,12,4.8,1250,Apple Store,https://shopee.co.th/...,https://example.com/image.jpg
 ```
 
-## Directory Structure
+**คอลัมน์ที่จำเป็น:**
+- `product_name` - ชื่อสินค้า
+- `product_price` - ราคาเต็ม
+- `product_discounted` - ราคาลด (0 ถ้าไม่มี)
+- `product_discount_percentage` - เปอร์เซ็นต์ส่วนลด
+- `product_rating` - คะแนน (0-5)
+- `product_review_count` - จำนวนรีวิว
+- `product_shop_name` - ชื่อร้าน
+- `product_url` - URL สินค้า
+- `product_image` - URL รูปภาพ
 
-```
-delasof2026_php/
-├── public/
-│   ├── index.php              # Main entry point
-│   ├── .htaccess              # URL rewriting rules
-│   └── assets/
-│       ├── css/
-│       │   ├── style.css      # Custom styles
-│       │   └── tailwind.css   # Tailwind CSS
-│       ├── js/
-│       │   └── app.js         # Main JavaScript
-│       └── images/
-│           └── placeholder.svg
-├── src/
-│   ├── api/
-│   │   ├── auth.php           # Authentication endpoints
-│   │   ├── config.php         # Configuration endpoints
-│   │   ├── products.php       # Product endpoints
-│   │   ├── csv.php            # CSV management
-│   │   └── sitemap.php        # Sitemap generation
-│   ├── pages/
-│   │   ├── home.php           # Homepage
-│   │   ├── admin.php          # Admin panel
-│   │   ├── about.php          # About page
-│   │   ├── contact.php        # Contact page
-│   │   ├── wishlist.php       # Wishlist page
-│   │   └── 404.php            # 404 page
-│   ├── components/
-│   │   └── layout.php         # Main layout template
-│   ├── lib/
-│   │   ├── config.php         # Configuration management
-│   │   ├── auth.php           # Authentication
-│   │   ├── url-builder.php    # URL cloaking
-│   │   ├── csv-parser.php     # CSV parsing
-│   │   └── utils.php          # Utility functions
-│   └── middleware/
-├── storage/
-│   ├── config.json            # Site configuration
-│   ├── csv/                   # CSV files
-│   └── logs/                  # Log files
-└── README.md
-```
-
-## API Documentation
-
-### Authentication
-
-**POST /api/auth/login**
-```json
-{
-  "username": "admin",
-  "password": "sofaraway"
-}
-```
-
-**GET /api/auth/logout**
-
-### Configuration
-
-**GET /api/config**
-Returns the current site configuration.
-
-**POST /api/config** (Admin only)
-```json
-{
-  "siteName": "New Name",
-  "cloakingToken": "new_token",
-  ...
-}
-```
-
-### Products
-
-**GET /api/products?page=1&limit=20&sort=default**
-List products with pagination.
-
-**GET /api/products?action=search&keyword=search_term**
-Search products.
-
-**GET /api/products?action=category&category=category_name**
-Get products by category.
-
-### CSV Management
-
-**GET /api/csv?category=category_name**
-Get CSV content for a category.
-
-**POST /api/csv?category=category_name** (Admin only)
-```json
-{
-  "csvContent": "CSV content here..."
-}
-```
-
-**DELETE /api/csv?category=category_name** (Admin only)
-Delete CSV for a category.
-
-## Features Overview
+## 🎨 Features
 
 ### Homepage
-- Product grid with images, prices, ratings
-- Search bar for product search
-- Category navigation
-- Sorting options (price, discount, rating)
+- ค้นหาสินค้า
+- ตัวกรองและเรียงลำดับ
+- แสดงสินค้าแบบ Grid
 - Pagination
 
 ### Admin Panel
-- **Settings Tab:** Configure site name, URL cloaking, features
-- **CSV Tab:** Upload and manage CSV files
-- **Categories Tab:** Manage product categories
+- **Settings Tab**
+  - ตั้งค่าชื่อไซต์
+  - ตั้งค่า URL Cloaking
+  - เปิด/ปิด Flash Sale
+  - เปิด/ปิด AI Reviews
 
-### Wishlist
-- Add/remove products to wishlist
-- Persistent storage using localStorage
-- Quick access from any page
+- **CSV Management Tab**
+  - อัพโหลด CSV ใหม่
+  - ลบ CSV เก่า
+  - แสดงรายการ CSV ที่อัพโหลด
 
-### URL Cloaking
-- Automatic URL encoding
-- Configurable base URL and token
-- Tracking parameters appended to all product links
+### Product Pages
+- หน้ารายละเอียดสินค้า
+- หน้าหมวดหมู่
+- หน้า Wishlist
+- หน้า About & Contact
 
-## Customization
+## 🔧 Troubleshooting
 
-### Changing Site Name
-1. Go to Admin Panel
-2. Update "Site Name" in Settings
-3. Click Save
+### ปัญหา: 404 Not Found
 
-### Adding New Categories
-1. Go to Admin Panel → Categories Tab
-2. Enter category name and click Add
-3. Upload CSV file for the category
+**วิธีแก้:** ตรวจสอบว่า `.htaccess` อยู่ใน root directory และ Apache มี `mod_rewrite` เปิดใช้งาน
 
-### Modifying URL Cloaking
-1. Go to Admin Panel → Settings
-2. Update Token and Base URL
-3. Click Save
+```bash
+# ตรวจสอบ mod_rewrite
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+```
 
-## Troubleshooting
+### ปัญหา: Permission Denied
 
-### 404 Errors
-- Ensure `.htaccess` is in the `public/` directory
-- Check that `mod_rewrite` is enabled (Apache)
-- Verify the base URL in your web server configuration
+**วิธีแก้:** ให้สิทธิ์เขียนสำหรับ storage directory
 
-### CSV Files Not Loading
-- Check that `storage/csv/` directory exists and is writable
-- Verify CSV file format matches the expected columns
-- Check file permissions (should be 644)
+```bash
+chmod -R 755 storage
+chown -R www-data:www-data storage  # สำหรับ Apache
+```
 
-### Admin Login Not Working
-- Clear browser cookies and session storage
-- Check that sessions are enabled in PHP
-- Verify `storage/` directory is writable
+### ปัญหา: CSV ไม่อัพโหลดได้
 
-### Images Not Displaying
-- Ensure image URLs in CSV are correct and accessible
-- Check CORS settings if images are from external domains
-- Verify placeholder image exists at `/assets/images/placeholder.svg`
+**วิธีแก้:**
+1. ตรวจสอบขนาดไฟล์ (สูงสุด 10MB)
+2. ตรวจสอบ format (ต้องเป็น CSV)
+3. ตรวจสอบ permissions สำหรับ `storage/csv/`
 
-## Performance Tips
+## 🚀 Deployment
 
-1. **Optimize CSV Files**
-   - Keep CSV files reasonably sized (< 10MB)
-   - Consider splitting large CSV files by category
+### ขั้นตอนการ Deploy
 
-2. **Enable Caching**
-   - Use browser caching for static assets
-   - Implement server-side caching for product data
+1. **Upload ไฟล์ไปยังเซิร์ฟเวอร์**
+   ```bash
+   scp -r delasof2026_php user@server:/var/www/
+   ```
 
-3. **Database Alternative**
-   - For large-scale deployments, consider migrating to a database
+2. **ตั้งค่า Permissions**
+   ```bash
+   ssh user@server
+   cd /var/www/delasof2026_php
+   chmod 755 storage storage/csv storage/logs
+   ```
 
-## Security Considerations
+3. **ตั้งค่า Virtual Host** (ถ้าใช้ Apache)
+   ```apache
+   <VirtualHost *:80>
+       ServerName yourdomain.com
+       DocumentRoot /var/www/delasof2026_php
+       
+       <Directory /var/www/delasof2026_php>
+           AllowOverride All
+           Require all granted
+       </Directory>
+   </VirtualHost>
+   ```
 
-1. **Admin Credentials**
-   - Change default admin password in production
-   - Use HTTPS for all admin operations
+4. **Enable Rewrite Module**
+   ```bash
+   sudo a2enmod rewrite
+   sudo systemctl restart apache2
+   ```
 
-2. **File Uploads**
-   - Validate uploaded CSV files
-   - Implement file size limits
+## 📞 Support
 
-3. **URL Cloaking**
-   - Use HTTPS for cloaking URLs
-   - Regularly update cloaking tokens
+สำหรับปัญหาหรือคำถาม กรุณาติดต่อ:
+- Email: support@example.com
+- GitHub Issues: https://github.com/werserver/dealsphpfinal/issues
 
-## Support
+## 📄 License
 
-For issues or questions, please contact: info@delasof.com
+MIT License - ใช้งานได้อย่างอิสระ
 
-## License
+## 🎉 Version
 
-MIT License - See LICENSE file for details
+**Version:** 2.0.0 (Standalone PHP)  
+**Last Updated:** February 2026
 
-## Changelog
+---
 
-### Version 1.0.0
-- Initial PHP port of Delasof2026
-- Complete feature parity with React version
-- Admin panel with CSV management
-- URL cloaking support
-- Responsive design
+Made with ❤️ for Thai E-commerce

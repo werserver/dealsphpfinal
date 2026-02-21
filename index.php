@@ -8,8 +8,7 @@
 session_start();
 
 // Define base paths
-define('BASE_PATH', dirname(dirname(__FILE__)));
-define('PUBLIC_PATH', __DIR__);
+define('BASE_PATH', __DIR__);
 define('SRC_PATH', BASE_PATH . '/src');
 define('STORAGE_PATH', BASE_PATH . '/storage');
 define('CSV_PATH', STORAGE_PATH . '/csv');

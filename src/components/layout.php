@@ -38,7 +38,7 @@ function renderLayout($content, $title = 'ThaiDeals', $description = 'ช้อ�
                         <a href="/contact" class="text-sm font-medium hover:text-primary transition">ติดต่อ</a>
                         <?php if ($isAdmin): ?>
                             <a href="/admin" class="text-sm font-medium text-orange-600 hover:text-orange-700 transition">⚙️ Admin</a>
-                            <a href="/api/auth/logout" class="text-sm font-medium text-red-600 hover:text-red-700 transition" onclick="handleLogout(event)">ออกจากระบบ</a>
+                            <a href="/?action=logout" class="text-sm font-medium text-red-600 hover:text-red-700 transition">ออกจากระบบ</a>
                         <?php else: ?>
                             <a href="/admin" class="text-sm font-medium hover:text-primary transition">Admin</a>
                         <?php endif; ?>
@@ -109,13 +109,7 @@ function renderLayout($content, $title = 'ThaiDeals', $description = 'ช้อ�
             // Mobile menu toggle logic
         });
 
-        // Logout handler
-        function handleLogout(e) {
-            e.preventDefault();
-            fetch('/api/auth/logout', { method: 'GET' })
-                .then(() => window.location.href = '/')
-                .catch(err => console.error('Logout error:', err));
-        }
+
     </script>
 </body>
 </html>
