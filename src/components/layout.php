@@ -17,10 +17,10 @@ function renderLayout($content, $title = 'ThaiDeals', $description = 'ช้อ�
     <meta name="description" content="<?php echo htmlspecialchars($description); ?>">
     <meta name="theme-color" content="#3b82f6">
     <title><?php echo htmlspecialchars($title); ?> - <?php echo htmlspecialchars($siteName); ?></title>
-    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?php echo $baseUrl; ?>/assets/images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/tailwind.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo $baseUrl; ?>/assets/css/tailwind.css">
+    <link rel="stylesheet" href="<?php echo $baseUrl; ?>/assets/css/style.css">
 </head>
 <body class="bg-background text-foreground font-sans">
     <div id="app">
@@ -28,19 +28,19 @@ function renderLayout($content, $title = 'ThaiDeals', $description = 'ช้อ�
         <header class="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
             <div class="container mx-auto px-4 py-4">
                 <div class="flex items-center justify-between gap-4">
-                    <a href="/" class="text-2xl font-bold text-primary">
+                    <a href="<?php echo $baseUrl; ?>" class="text-2xl font-bold text-primary">
                         <?php echo htmlspecialchars($siteName); ?>
                     </a>
                     <nav class="hidden md:flex items-center gap-6">
-                        <a href="/" class="text-sm font-medium hover:text-primary transition">หน้าแรก</a>
-                        <a href="/wishlist" class="text-sm font-medium hover:text-primary transition">รายการโปรด</a>
-                        <a href="/about" class="text-sm font-medium hover:text-primary transition">เกี่ยวกับ</a>
-                        <a href="/contact" class="text-sm font-medium hover:text-primary transition">ติดต่อ</a>
+                        <a href="<?php echo $baseUrl; ?>" class="text-sm font-medium hover:text-primary transition">หน้าแรก</a>
+                        <a href="<?php echo $baseUrl; ?>/wishlist" class="text-sm font-medium hover:text-primary transition">รายการโปรด</a>
+                        <a href="<?php echo $baseUrl; ?>/about" class="text-sm font-medium hover:text-primary transition">เกี่ยวกับ</a>
+                        <a href="<?php echo $baseUrl; ?>/contact" class="text-sm font-medium hover:text-primary transition">ติดต่อ</a>
                         <?php if ($isAdmin): ?>
-                            <a href="/admin" class="text-sm font-medium text-orange-600 hover:text-orange-700 transition">⚙️ Admin</a>
-                            <a href="/?action=logout" class="text-sm font-medium text-red-600 hover:text-red-700 transition">ออกจากระบบ</a>
+                            <a href="<?php echo $baseUrl; ?>/admin" class="text-sm font-medium text-orange-600 hover:text-orange-700 transition">⚙️ Admin</a>
+                            <a href="<?php echo $baseUrl; ?>?action=logout" class="text-sm font-medium text-red-600 hover:text-red-700 transition">ออกจากระบบ</a>
                         <?php else: ?>
-                            <a href="/admin" class="text-sm font-medium hover:text-primary transition">Admin</a>
+                            <a href="<?php echo $baseUrl; ?>/admin" class="text-sm font-medium hover:text-primary transition">Admin</a>
                         <?php endif; ?>
                     </nav>
                     <button class="md:hidden p-2 hover:bg-gray-100 rounded-lg" id="mobileMenuBtn">
@@ -68,9 +68,9 @@ function renderLayout($content, $title = 'ThaiDeals', $description = 'ช้อ�
                     <div>
                         <h4 class="font-bold mb-4">ลิงก์</h4>
                         <ul class="space-y-2 text-gray-400 text-sm">
-                            <li><a href="/" class="hover:text-white transition">หน้าแรก</a></li>
-                            <li><a href="/about" class="hover:text-white transition">เกี่ยวกับ</a></li>
-                            <li><a href="/contact" class="hover:text-white transition">ติดต่อ</a></li>
+                            <li><a href="<?php echo $baseUrl; ?>" class="hover:text-white transition">หน้าแรก</a></li>
+                            <li><a href="<?php echo $baseUrl; ?>/about" class="hover:text-white transition">เกี่ยวกับ</a></li>
+                            <li><a href="<?php echo $baseUrl; ?>/contact" class="hover:text-white transition">ติดต่อ</a></li>
                         </ul>
                     </div>
                     <div>
@@ -94,7 +94,7 @@ function renderLayout($content, $title = 'ThaiDeals', $description = 'ช้อ�
         </footer>
     </div>
 
-    <script src="/assets/js/app.js"></script>
+    <script src="<?php echo $baseUrl; ?>/assets/js/app.js"></script>
     <script>
         // Theme toggle
         document.addEventListener('DOMContentLoaded', function() {

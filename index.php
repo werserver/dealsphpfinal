@@ -1,8 +1,8 @@
 <?php
 /**
  * Delasof2026 PHP - Main Entry Point
+ * XAMPP Compatible Version
  * Standalone PHP application for affiliate shop management
- * No API endpoints - Direct file-based operations
  */
 
 session_start();
@@ -35,10 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     handlePostRequest();
 }
 
-// Parse request URI
+// Parse request URI - XAMPP Compatible
 $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$base_url = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
-$path = substr($request_uri, strlen($base_url));
+$script_name = dirname($_SERVER['SCRIPT_NAME']);
+$script_name = ($script_name === '\\') ? '/' : $script_name;
+
+// Get the path relative to this script
+if (strpos($request_uri, $script_name) === 0) {
+    $path = substr($request_uri, strlen($script_name));
+} else {
+    $path = $request_uri;
+}
+
 $path = '/' . ltrim($path, '/');
 
 // Handle page requests
@@ -46,10 +54,17 @@ $page = 'home';
 $params = [];
 
 // Parse path and extract page/params
-if ($path !== '/') {
+if ($path !== '/' && $path !== '/index.php') {
     $parts = array_filter(explode('/', $path));
     $page = array_shift($parts) ?: 'home';
     $params = $parts;
+}
+
+// Handle special routes
+if ($page === 'logout') {
+    Auth::logout();
+    header('Location: ' . getBaseUrl());
+    exit;
 }
 
 // Render page
@@ -72,7 +87,7 @@ function handlePostRequest() {
     if (in_array($action, ['upload_csv', 'delete_csv', 'save_config'])) {
         if (!Auth::isLoggedIn()) {
             $_SESSION['error'] = 'ต้องเข้าสู่ระบบก่อน';
-            header('Location: /admin');
+            header('Location: ' . getBaseUrl() . '/admin');
             exit;
         }
     }
@@ -96,7 +111,7 @@ function handlePostRequest() {
         
         default:
             $_SESSION['error'] = 'ไม่รู้จักการดำเนินการนี้';
-            header('Location: /admin');
+            header('Location: ' . getBaseUrl() . '/admin');
             break;
     }
 }
@@ -110,10 +125,10 @@ function handleLogin() {
     
     if (Auth::login($username, $password)) {
         $_SESSION['success'] = 'เข้าสู่ระบบสำเร็จ';
-        header('Location: /admin');
+        header('Location: ' . getBaseUrl() . '/admin');
     } else {
         $_SESSION['error'] = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
-        header('Location: /admin');
+        header('Location: ' . getBaseUrl() . '/admin');
     }
     exit;
 }
@@ -124,7 +139,7 @@ function handleLogin() {
 function handleCsvUpload() {
     if (!isset($_FILES['csv_file'])) {
         $_SESSION['error'] = 'ไม่มีไฟล์ที่เลือก';
-        header('Location: /admin');
+        header('Location: ' . getBaseUrl() . '/admin');
         exit;
     }
     
@@ -134,21 +149,21 @@ function handleCsvUpload() {
     // Validate file
     if ($file['error'] !== UPLOAD_ERR_OK) {
         $_SESSION['error'] = 'เกิดข้อผิดพลาดในการอัพโหลด';
-        header('Location: /admin');
+        header('Location: ' . getBaseUrl() . '/admin');
         exit;
     }
     
     // Check file type
     if ($file['type'] !== 'text/csv' && $file['type'] !== 'application/vnd.ms-excel') {
         $_SESSION['error'] = 'ต้องเป็นไฟล์ CSV เท่านั้น';
-        header('Location: /admin');
+        header('Location: ' . getBaseUrl() . '/admin');
         exit;
     }
     
     // Check file size (max 10MB)
     if ($file['size'] > 10 * 1024 * 1024) {
         $_SESSION['error'] = 'ไฟล์ใหญ่เกินไป (สูงสุด 10MB)';
-        header('Location: /admin');
+        header('Location: ' . getBaseUrl() . '/admin');
         exit;
     }
     
@@ -167,7 +182,7 @@ function handleCsvUpload() {
         $_SESSION['error'] = 'ไม่สามารถบันทึกไฟล์ได้';
     }
     
-    header('Location: /admin');
+    header('Location: ' . getBaseUrl() . '/admin');
     exit;
 }
 
@@ -179,7 +194,7 @@ function handleCsvDelete() {
     
     if (empty($category)) {
         $_SESSION['error'] = 'ไม่ได้ระบุหมวดหมู่';
-        header('Location: /admin');
+        header('Location: ' . getBaseUrl() . '/admin');
         exit;
     }
     
@@ -191,7 +206,7 @@ function handleCsvDelete() {
         $_SESSION['error'] = 'ไม่สามารถลบไฟล์ได้';
     }
     
-    header('Location: /admin');
+    header('Location: ' . getBaseUrl() . '/admin');
     exit;
 }
 
@@ -233,7 +248,7 @@ function handleConfigSave() {
         $_SESSION['error'] = 'ไม่สามารถบันทึกการตั้งค่าได้';
     }
     
-    header('Location: /admin');
+    header('Location: ' . getBaseUrl() . '/admin');
     exit;
 }
 ?>
